@@ -1,6 +1,7 @@
-version: '3.1'
+version: '3'
 services:
   db:
+    container_name: mxdb
     image: mysql:latest
     ports:
       - 3306:3306
@@ -10,6 +11,7 @@ services:
       MYSQL_ROOT_PASSWORD: admin123
     
   mendixapp:
+    container_name: mendixapp
     image:  gopirapid07/rapidlease:12
     restart: always
     depends_on: 
@@ -17,9 +19,9 @@ services:
     ports:
       - 8083:8080
     links:
-      - 'db:db'  
+      - 'db:gopirapid07/rapidlease:12'  
     environment:
-      - ENV HOME=/opt/mendix/build
-      - ENV PYTHONPATH=/opt/mendix/buildpack/lib/:/opt/mendix/buildpack/:/opt/mendix/buildpack/lib/python3.6/site-packages/
-      - ENV NGINX_CUSTOM_BIN_PATH=/usr/sbin/nginx
+      - ENV_HOME=/opt/mendix/build
+      - ENV_PYTHONPATH=/opt/mendix/buildpack/lib/:/opt/mendix/buildpack/:/opt/mendix/buildpack/lib/python3.6/site-packages/
+      - ENV_NGINX_CUSTOM_BIN_PATH=/usr/sbin/nginx
         
